@@ -2,12 +2,11 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const path=require("path")
+const path = require("path")
 const multer = require('multer');
 
 const userRouter = require('./routes/userRoutes');
 const blogRouter = require('./routes/blogRoutes');
-const commentRouter = require('./routes/commentRoutes');
 const port = process.env.PORT || 8000;
 
 const connectDB = (url) => {
@@ -31,10 +30,9 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
-app.use('/images', express.static(path.join(__dirname,"uploads")));
+app.use('/images', express.static(path.join(__dirname, "uploads")));
 app.use('/user', userRouter);
 app.use('/blog', blogRouter);
-app.use('/comment', commentRouter);
 
 app.all('*', (req, res) => {
     res.send('oops!! you came to the wrong route')
@@ -51,4 +49,4 @@ const start = async (url) => {
     }
 };
 
-start(process.env.MONGO_PASS);
+start(process.env.MONGODB_PASS);
